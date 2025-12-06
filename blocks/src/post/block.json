@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "dmg/post",
+	"version": "1.0.0",
+	"title": "DMG Post",
+	"category": "dmg",
+	"icon": "paperclip",
+	"description": "This block allows you to search post and select the post to display.",
+	"example": {},
+	"supports": {
+		"html": false,
+		"color": {
+			"text": true,
+			"background": true,
+			"link": true,
+			"gradients": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"textAlign": true
+		}
+	},
+	"attributes": {
+		"postData": {
+			"type": "object",
+			"default": {
+				"title": "",
+				"url": ""
+			}
+		}
+	},
+	"textdomain": "dmg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript":"file:./view.js"
+}
