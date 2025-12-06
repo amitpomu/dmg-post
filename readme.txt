@@ -41,9 +41,26 @@ DMG Post WordPress Plugin, Copyright 2025, amitpomu
 
 An answer to that question.
 
-= What about foo bar? =
+= Custom Command for CLI =
 
-Answer to foo bar dilemma.
+Search posts/pages for a specific Gutenberg block within a date range.
+
+## OPTIONS
+
+[--block=<block_name>]
+: Gutenberg block name to search for. Example: dmg/post
+
+[--date-after=<YYYY-MM-DD>]
+: Start date. Defaults to 30 days ago if omitted.
+
+[--date-before=<YYYY-MM-DD>]
+: End date. Defaults to today if omitted.
+
+## EXAMPLES
+
+wp dmg-read-more search --block=dmg/post
+wp dmg-read-more search --block=dmg/post --date-after=2025-11-01 --date-before=2025-11-30
+    
 
 == Screenshots ==
 
