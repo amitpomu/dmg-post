@@ -44,46 +44,54 @@ class DMG_Read_More_CLI
         $date_after = isset($assoc_args['date-after']) ? $assoc_args['date-after'] : date('Y-m-d', strtotime('-30 days'));
 
         // Fetch posts
-        $posts = get_posts([
-            'post_type' => ['post', 'page'],
-            'post_status' => 'publish',
-            'ignore_sticky_posts' => true,
-            'date_query' => [
-                [
-                    'after' => $date_after,
-                    'before' => $date_before,
-                    'inclusive' => true,
-                ],
-            ],
-            'fields' => 'ids',
-            'posts_per_page' => -1,
-        ]);
+        // $posts = get_posts(array(
+        //     'post_type' => array('post', 'page'),
+        //     'post_status' => 'publish',
+        //     'ignore_sticky_posts' => true,
+        //     'date_query' => array(
+        //         array(
+        //             'after' => $date_after,
+        //             'before' => $date_before,
+        //             'inclusive' => true,
+        //         ),
+        //     ),
+        //     'fields' => 'ids',
+        //     'posts_per_page' => -1,
+        // ));
 
-        if (empty($posts)) {
+        global $wpdb;
+
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT ID, post_content FROM $wpdb->posts WHERE post_status = 'publish' AND post_type IN ('post','page') AND post_date >= %s AND post_date <= %s",
+            $date_after,
+            $date_before
+        ));
+
+        if (!isset($result) || empty($results)) {
             WP_CLI::warning("No posts found in the given date range.");
             return;
         }
 
         $found = false;
 
-        foreach ( $posts as $post_id ) {
-                $content = get_post_field('post_content', $post_id);
-
-                if ( strpos($content, '<!-- wp:' . $block_name) !== false ) {
-                    WP_CLI::log($post_id);
-                    $found = true;
-                }
+        foreach ($results as $row) {
+            if (strpos($row->post_content, '<!-- wp:' . $block_name) !== false) {
+                WP_CLI::success($row->ID);
+                $found = true;
             }
+        }
 
-            // foreach ($posts as $post) {
-            //     if (has_block($block_name, get_post($post))) {
-            //         WP_CLI::log($post);
-            //         $found = true;
-            //     }
-            // }
+        // foreach ($posts as $post_id) {
+        //     $content = get_post_field('post_content', $post_id);
+
+        //     if (strpos($content, '<!-- wp:' . $block_name) !== false) {
+        //         WP_CLI::log($post_id);
+        //         $found = true;
+        //     }
+        // }
 
         if (!$found) {
-            WP_CLI::warning("No posts found containing the block '{$block_name}' in the given date range.");
+            WP_CLI::log("No posts found containing the block '{$block_name}' in the given date range.");
         }
         wp_reset_postdata();
     }

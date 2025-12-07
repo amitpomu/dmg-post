@@ -5,20 +5,29 @@
     padding: 0 15px 15px;
     
     a {
+        color: #3d3d3d;
         display: block;
         margin-top: 5px;
-        background-color: rgba(0,0,0,0.01)
     }
 
     .dmg-pagination {
         display: flex;
         flex-direction: row;
+        align-items: center;
         margin-top: 15px;
         gap: 5px;
         
         a {
-            background: transparent;
             display: inline-flex;
+            text-decoration: none;
+            color: #2d2d2d;
+        }
+        a.dmg-next,
+        a.dmg-prev {
+            background: #2d2d2d;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 10px;
         }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       DMG Post
  * Plugin URI:        localhost
- * Description:       This block allows you to create subscribtion form for latest news in single post/page.
+ * Description:       This plugin allows you to add block with searchable posts and set one readmore post. Adds custom cli command to search posts that has the dmg block.
  * Version:           1.0.0
  * Tested up to: 	  6.9
  * Requires PHP:      7.4

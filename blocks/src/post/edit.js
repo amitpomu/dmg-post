@@ -25,7 +25,6 @@ export default function Edit(props) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [paged, setPaged] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const [pagination, setPagination] = useState([]);
 	const [postList, setPostList] = useState("");
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -39,10 +38,12 @@ export default function Edit(props) {
 		setPaged(paged + 1);
 	};
 
+	
 	useEffect(() => {
+		const postPerPage = 6;
 		setError(null);
 
-		getSearchPosts(searchTerm, 4, paged)
+		getSearchPosts(searchTerm, postPerPage, paged)
 			.then((data) => {
 				setPostList(data.data);
 				setTotalPages(data.pages);
@@ -105,7 +106,7 @@ export default function Edit(props) {
 
 								<div className="dmg-pagination">
 									{paged > 1 && (
-										<a href="#" onClick={Prev}>
+										<a href="#" className="dmg-prev" onClick={Prev}>
 											{__("Prev", "dmg")}
 										</a>
 									)}
@@ -133,7 +134,6 @@ export default function Edit(props) {
 												onClick={() => setPaged(page)}
 												style={{
 													fontWeight: page === paged ? "bold" : "normal",
-													textDecoration: page === paged ? "none" : "underline",
 												}}
 											>
 												{`${page < paged && page > 1 ? "..." : ""}${page}${
@@ -144,7 +144,7 @@ export default function Edit(props) {
 									})(searchTerm)}
 
 									{paged < totalPages && (
-										<a href="#" onClick={Next}>
+										<a href="#" className="dmg-next" onClick={Next}>
 											{__("Next", "dmg")}
 										</a>
 									)}

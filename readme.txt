@@ -6,7 +6,7 @@ Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-This block allows you to add block with searchable posts. Adds custom cli command to search posts that has the dmg block.
+This plugin allows you to add block with searchable posts and set one readmore post. Adds custom cli command to search posts that has the dmg block.
 
 == Description ==
 
